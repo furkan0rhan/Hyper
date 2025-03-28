@@ -1,3 +1,12 @@
+"angular": "v19.2.5", // npm install -g @angular/cli    \\
+"npm": "v10.9.2",     // https://nodejs.org/en/download \\
+"node": "v22.14.0"    // https://nodejs.org/en/download \\
+
+Versionlarını indirdikten sonra npm install ve ng serve --open ya da npm start diyebilirsiniz.
+Ben canlıya ücretsiz bir siteden canlıya aldım. İstediklerinizin hepsi var. Eğer detaylı isterseniz devamını da yapabilirim. 
+Canlı sitesi : https://chipper-creponne-f7a202.netlify.app/
+
+
 # HyperTask
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.5.
