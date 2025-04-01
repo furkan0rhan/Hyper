@@ -35,46 +35,46 @@ interface db {
 })
 
 export class AppComponent implements OnInit {
-  title = 'hyperTask';
   data: db[] = [];
   visible: boolean = false;
 
   constructor(private http: HttpService) {}
 
   ngOnInit(): void {
-    // this.http.post('Login/Customer/Api/Token', {
-    //   email: "demo@hyper.com",
-    //   password: "hyper123"
-    // }, (f: any) => {
-    //   console.log(f);
-    // });
+    this.http.post('Login/Customer',
+      {
+        "email": "demo@hyper.com",
+        "password": "hyper123"
+      }, (f: any) => {
+        localStorage.removeItem('token');
+        localStorage.setItem('token', f.data);
+        this.http.post('customertracking/list',{},(f: any) => {
+          if (f.data.length > 0){
+            this.visible = true;
+          }
 
-    this.http.post('customertracking/list',{},(f: any) => {
-      if (f.data.length > 0){
-        this.visible = true;
-      }
+          f.data.map((item: any) => {
+            let productDataParse = JSON.parse(item.productData);
+            let productCommentDataParse = JSON.parse(item.productCommentData);
+            const a = {
+              createDate: item.createDate,
+              customerStoreID: item.customerStoreID,
+              id: item.id,
+              marketPrice: item.marketPrice,
+              productCategoryID: item.productCategoryID,
+              productCommentData: productCommentDataParse,
+              productData: productDataParse,
+              productID: item.productID,
+              productName: item.productName,
+              productSlug: item.productSlug,
+              salePrice: item.salePrice,
+              sellersData: item.sellersData,
+              value: 3
+            }
 
-      f.data.map((item: any) => {
-        let productDataParse = JSON.parse(item.productData);
-        let productCommentDataParse = JSON.parse(item.productCommentData);
-        const a = {
-          createDate: item.createDate,
-          customerStoreID: item.customerStoreID,
-          id: item.id,
-          marketPrice: item.marketPrice,
-          productCategoryID: item.productCategoryID,
-          productCommentData: productCommentDataParse,
-          productData: productDataParse,
-          productID: item.productID,
-          productName: item.productName,
-          productSlug: item.productSlug,
-          salePrice: item.salePrice,
-          sellersData: item.sellersData,
-          value: 3
-        }
-
-        this.data.push(a);
-      });
+            this.data.push(a);
+          });
+        });
     });
   }
 }
